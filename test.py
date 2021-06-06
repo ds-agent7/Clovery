@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 import os
-
+from catboost import CatBoostClassifier
 
 from sklearn.preprocessing import StandardScaler
 
