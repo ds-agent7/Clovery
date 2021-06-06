@@ -7,6 +7,7 @@ import time
 import os
 from catboost import CatBoostClassifier
 from sklearn.preprocessing import StandardScaler
+from say import *
 
 st.header('Предсказание прихвата на буровой')
 st.subheader('время сигнала около 120 сек')
