@@ -79,8 +79,8 @@ if w:
             st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
-    data = data[:1000] #186 #500
-    X = X[:1000]
+    data = data[:194] #186 #500
+    X = X[:194]
 
 
     n = data.index.max()
