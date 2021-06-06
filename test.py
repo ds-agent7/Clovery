@@ -7,7 +7,7 @@ import numpy as np
 import time
 import os
 
-import tones as tones
+
 from sklearn.preprocessing import StandardScaler
 
 st.header('Предсказание прихвата на буровой')
@@ -16,13 +16,7 @@ st.subheader('время сигнала около 120 сек')
 #@st.cache()
 w = st.file_uploader("Upload a CSV file", type="csv")
 if w:
-    import pandas as pd
-
-
-
     data = pd.read_csv(w)
-
-
 
 #file = "ctboost_predict_model60_6_New.pkl"
 #file = "https://github.com/ds-agent7/Clovery/blob/main/ctboost_predict_model60_6_New.pkl"
@@ -121,7 +115,6 @@ if w:
         st.write("")
         st.write("")
         time.sleep(0.1) # время задержки
-
 
     else:
         os.system('say "Норма"')
