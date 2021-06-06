@@ -1,5 +1,4 @@
 import pickle
-
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -7,7 +6,6 @@ import numpy as np
 import time
 import os
 from catboost import CatBoostClassifier
-
 from sklearn.preprocessing import StandardScaler
 
 st.header('Предсказание прихвата на буровой')
@@ -18,12 +16,9 @@ w = st.file_uploader("Upload a CSV file", type="csv")
 if w:
     data = pd.read_csv(w)
 
-#file = "ctboost_predict_model60_6_New.pkl"
-#file = "https://github.com/ds-agent7/Clovery/blob/main/ctboost_predict_model60_6_New.pkl"
-#file = "https://drive.google.com/file/d/1rZ8BpoFMjh66tUNuEi9NEwQnOn8ieFUb/view?usp=sharing"
-
+    #file = "ctboost_predict_model60_6_New.pkl"
+    #file = "https://github.com/ds-agent7/Clovery/blob/main/ctboost_predict_model60_6_New.pkl"
     file = "ctboost_predict_model60_6_New.pkl"
-
     pickle_in = open(file, 'rb')
     ctboost_model = pickle.load(pickle_in)
 
@@ -41,9 +36,7 @@ if w:
     df7 = pd.DataFrame(y_predict)
     data["predict_class"] = df7
 
-
     # Отрисовка временных рядов:
-
     def plt_time_shift(data, time_col, col_list, hole_id):
 
         for i in range(len(col_list)):
@@ -78,10 +71,8 @@ if w:
             st.pyplot()
             st.set_option('deprecation.showPyplotGlobalUse', False)
 
-
-    data = data[:194] #186 #500
-    X = X[:194]
-
+    data = data[:193] #186 #500
+    X = X[:193]
 
     n = data.index.max()
     X_valid = X[n]
