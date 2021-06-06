@@ -1,5 +1,4 @@
 import pickle
-from _curses import beep
 
 import pandas as pd
 import streamlit as st
@@ -8,10 +7,8 @@ import numpy as np
 import time
 import os
 
-
 import tones as tones
 from sklearn.preprocessing import StandardScaler
-
 
 st.header('Предсказание прихвата на буровой')
 st.subheader('время сигнала около 120 сек')
@@ -25,12 +22,7 @@ if w:
 
     data = pd.read_csv(w)
 
-    import os
 
-    duration = 1  # seconds
-    freq = 440  # Hz
-    os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
-    #st.write(data)  вывод датасета на экран
 
 #file = "ctboost_predict_model60_6_New.pkl"
 #file = "https://github.com/ds-agent7/Clovery/blob/main/ctboost_predict_model60_6_New.pkl"
@@ -47,11 +39,11 @@ if w:
 
     # нормализация:
     sc= StandardScaler()
-    X = sc.fit_transform(X)
+    X_norm = sc.fit_transform(X)
     y = data['StuckPipe60_6'].values
 
-    y_predict = ctboost_model.predict(X)
-    y_predict_proba = ctboost_model.predict_proba(X)
+    y_predict = ctboost_model.predict(X_norm)
+    y_predict_proba = ctboost_model.predict_proba(X_norm)
     df7 = pd.DataFrame(y_predict)
     data["predict_class"] = df7
 
@@ -93,8 +85,8 @@ if w:
             st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
-    data = data[:190] #186 #500
-    X = X[:190]
+    data = data[:1000] #186 #500
+    X = X[:1000]
 
 
     n = data.index.max()
@@ -106,7 +98,7 @@ if w:
     Stuckpipe = data["StuckPipe"][n]
 
     #y_predict = ctboost_model.predict(X_valid)  # вариант с категорией
-    y_predict_proba = ctboost_model.predict_proba(X[n]) # вариант с вероятностью
+    y_predict_proba = ctboost_model.predict_proba(X_norm[n]) # вариант с вероятностью
     #if y_predict==1:
     if y_predict_proba[1] > 0.5:
         os.system('say "Опасность прихвата через 2 минуты!"')
