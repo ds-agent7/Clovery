@@ -6,8 +6,6 @@ import warnings
 from datetime import timedelta
 import re
 from re import split
-from xgboost import XGBClassifier as xgb
-from xgboost import XGBClassifier
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -21,8 +19,6 @@ st.header('Предсказание прихвата на буровой')
 st.subheader('время упреждающего сигнала около 120 сек')
 st.write("Работа с 1 файлом, построчный анализ")
 
-
-model1 = "ctboost_predict_model60_6_New.pkl"
 model = "ctboost_predict_model60_6_all.pkl"
 
 pickle_in = open(model, 'rb')
