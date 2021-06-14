@@ -8,3 +8,4 @@ catboost==0.24.3
 say==1.6.6
 #python-espeak==0.6.3
 xlrd >= 1.0.0
+openpyxl==3.0.7
