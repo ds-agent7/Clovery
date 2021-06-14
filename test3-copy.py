@@ -1,16 +1,17 @@
-import os
 import pickle
-import time
 import warnings
-# pip install xlrd
 from datetime import timedelta
-import re
-from re import split
-import matplotlib.pyplot as plt
-import numpy as np
+
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+import os
+
 from IPython.core.display import display
+from catboost import CatBoostClassifier
+from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings('ignore')
 from sklearn.preprocessing import StandardScaler
@@ -19,6 +20,8 @@ st.header('Предсказание прихвата на буровой')
 st.subheader('время упреждающего сигнала около 120 сек')
 st.write("Работа с 1 файлом, построчный анализ")
 
+
+model1 = "ctboost_predict_model60_6_New.pkl"
 model = "ctboost_predict_model60_6_all.pkl"
 
 pickle_in = open(model, 'rb')
@@ -39,7 +42,7 @@ if path:
 
     # button_start = st.button('Начать анализ в указанных параметрах')
     if st.button('Начать анализ в указанных параметрах'):
-        #file = path.st.split('/')[-1].split('.')[0].split('-')[0]
+        file = os.path.split('/')[-1].split('.')[0].split('-')[0]
 
         # Функции для выравнивания временного ряда
         def upsampl_time(d1, delta):
@@ -121,10 +124,10 @@ if path:
             }
 
             file = path
-            #file = path.split('/')[-1].split('.')[0].split('-')[0]
+            file = os.path.split('/')[-1].split('.')[0].split('-')[0]
             #file = path
             #     n=0
-            #data_f['file'] = file
+            data_f['file'] = file
             if 'Stick_Slip_Ratio' in data_f.columns:
                 data_f.rename(columns=recolumn_2, inplace=True)
             else:
@@ -546,7 +549,7 @@ if path:
 
 
         walk_dir()
-        #data = pd.read_csv('data.csv')
+        data = pd.read_csv('data.csv')
         # data = data_f
         display(data)
 
