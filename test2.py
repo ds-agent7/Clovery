@@ -50,8 +50,15 @@ if w:
     for i in range(0, n + 1):
         X_valid = X[i]
         X_n = X_norm[i]
-        Time = data["Date/Time"][i]
-        # BPOS = data["BPOS"][i]
+       Time = data["Date/Time"][i]
+        BPOS = data["BPOS"][i]
+        HKLD = data["HKLD"][i]
+        SPPA = data["SPPA"][i]
+        FLWI = data["FLWI"][i]
+        SPPA = data["SPPA"][i]
+        STOR = data["STOR"][i]
+        RPM = data["RPM"][i]
+        ECD = data["ECD"][i]
         hole_number = data["hole"][i]
         id_index = data.index[i]
         Stuckpipe = data["StuckPipe"][i]  # только для TEST
@@ -68,16 +75,16 @@ if w:
 
             print("")
             st.write("Hole: {}".format(hole_number))
-            st.write("BPOS: {0:0.2f}".format(X_valid[2]))
-            st.write("HKLD: {0:0.2f}".format(X_valid[3]))
-            st.write("STOR: {0:0.2f}".format(X_valid[4]))
-            st.write("FLWI: {0:0.2f}".format(X_valid[5]))
-            st.write("RPM: {0:0.2f}".format(X_valid[6]))
-            st.write("SPPA: {0:0.2f}".format(X_valid[7]))
-            st.write("ECD: {0:0.2f}".format(X_valid[8]))
+            st.write("BPOS: {0:0.2f}".format(BPOS))
+            st.write("HKLD: {0:0.2f}".format(HKLD))
+            st.write("STOR: {0:0.2f}".format(STOR))
+            st.write("FLWI: {0:0.2f}".format(FLWI))
+            st.write("RPM: {0:0.2f}".format(RPM))
+            st.write("SPPA: {0:0.2f}".format(SPPA))
+            st.write("ECD: {0:0.2f}".format(ECD))
             st.write("_")
             st.write("_")
-            time.sleep(1.0)  # время задержки
+            time.sleep(0.3)  # время задержки
         else:
             st.write("ID: {}".format(id_index))
             st.subheader("Показания датчиков в норме.")
