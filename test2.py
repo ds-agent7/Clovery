@@ -50,7 +50,7 @@ if w:
     for i in range(0, n + 1):
         X_valid = X[i]
         X_n = X_norm[i]
-       Time = data["Date/Time"][i]
+        Time = data["Date/Time"][i]
         BPOS = data["BPOS"][i]
         HKLD = data["HKLD"][i]
         SPPA = data["SPPA"][i]
