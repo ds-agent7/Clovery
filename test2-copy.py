@@ -25,10 +25,12 @@ data = pd.DataFrame()
 
 #Insert a file uploader that accepts multiple files at a time:
 files = st.file_uploader("Choose a EXCEL file", accept_multiple_files=True, type=["xlsx"])
+
 for path in files:
     button = st.button(path.name)
+    filename = path.name
     #data = pd.read_csv(uploaded_file)
-    data = pd.read_excel(path)
+    data = pd.read_excel(path, skiprows=[1, 2])
 
     # button_start = st.button('Начать анализ в указанных параметрах')
     if button:
@@ -44,7 +46,6 @@ for path in files:
             d1 = d1.reset_index()
             return d1
 
-
         def downsampl_time(d1, delta):
             # downsamling - понижение разрешения до 10 секунд, при схлопывании по другим признакам берется максимальное значение
             d1['Date/Time'] = pd.to_datetime(d1['Date/Time'])
@@ -52,7 +53,6 @@ for path in files:
             d1 = d1.resample(delta).max()
             d1 = d1.reset_index()
             return d1
-
 
         def sec_for_min(d1):
             # проставление "обрезанных" секунд при наличии данных для них
@@ -72,7 +72,6 @@ for path in files:
                 i += 1
                 t_old = t
             return d1
-
 
         def walk_dir(path=path, data_f=data):
             #     COLUMN_NAMES = ['Date/Time', 'StuckPipe', 'TVD', 'DEPT', 'CDEPTH', 'HDTH', 'BPOS', 'HKLD', 'STOR',
@@ -116,10 +115,10 @@ for path in files:
                 'STICK_RT': 'StickPercentage'
             }
 
-            file = os.path.split('/')[-1].split('.')[0].split('-')[0]
+            file = filename.split('/')[-1].split('.')[0].split('-')[0]
             #     n=0
             # file = path
-            #     data_f['file'] = file
+            data_f['file'] = file
             if 'Stick_Slip_Ratio' in data_f.columns:
                 data_f.rename(columns=recolumn_2, inplace=True)
             else:
@@ -593,12 +592,17 @@ for path in files:
         X_valid = X[n]
         feat_list = ['BPOS', 'HKLD', 'STOR', 'ECD', "FLWI", "RPM", "SPPA"]
         Time = data["Date/Time"][n]
-        #hole_number = data["hole"]
-
-        hole_number = file
+        hole_number = data["hole"][n]
         id_index = data.index[n]
         Stuckpipe = data["StuckPipe"][n]
-
+        BPOS = data["BPOS"][n]
+        HKLD = data["HKLD"][n]
+        SPPA = data["SPPA"][n]
+        FLWI = data["FLWI"][n]
+        SPPA = data["SPPA"][n]
+        STOR = data["STOR"][n]
+        RPM = data["RPM"][n]
+        ECD = data["ECD"][n]
         y_predict_proba = ctboost_model.predict_proba(X_norm[n])  # вариант с вероятностью
 
         if y_predict_proba[1] > 0.5:
@@ -611,14 +615,14 @@ for path in files:
             st.write("")
             st.write("ID: {}".format(id_index))
             st.write("Разметка Stuckpipe: {}".format(Stuckpipe))
-            #st.write("Hole: {}".format(hole_number))
-            st.write("BPOS: {0:0.2f}".format(X_valid[2]))
-            st.write("HKLD: {0:0.2f}".format(X_valid[3]))
-            st.write("STOR: {0:0.2f}".format(X_valid[4]))
-            st.write("FLWI: {0:0.2f}".format(X_valid[5]))
-            st.write("RPM: {0:0.2f}".format(X_valid[6]))
-            st.write("SPPA: {0:0.2f}".format(X_valid[7]))
-            st.write("ECD: {0:0.2f}".format(X_valid[8]))
+            st.write("Hole: {}".format(hole_number))
+            st.write("BPOS: {0:0.2f}".format(BPOS))
+            st.write("HKLD: {0:0.2f}".format(HKLD))
+            st.write("STOR: {0:0.2f}".format(STOR))
+            st.write("FLWI: {0:0.2f}".format(FLWI))
+            st.write("RPM: {0:0.2f}".format(RPM))
+            st.write("SPPA: {0:0.2f}".format(SPPA))
+            st.write("ECD: {0:0.2f}".format(ECD))
 
         else:
             os.system('say "Норма"')
@@ -628,14 +632,14 @@ for path in files:
             # y_predict_proba[1]))
             st.write("ID: {}".format(id_index))
             st.write("Разметка Stuckpipe: {}".format(Stuckpipe))
-            #st.write("Hole: {}".format(hole_number))
-            st.write("BPOS: {0:0.2f}".format(X_valid[2]))
-            st.write("HKLD: {0:0.2f}".format(X_valid[3]))
-            st.write("STOR: {0:0.2f}".format(X_valid[4]))
-            st.write("FLWI: {0:0.2f}".format(X_valid[5]))
-            st.write("RPM: {0:0.2f}".format(X_valid[6]))
-            st.write("SPPA: {0:0.2f}".format(X_valid[7]))
-            st.write("ECD: {0:0.2f}".format(X_valid[8]))
+            st.write("Hole: {}".format(hole_number))
+            st.write("BPOS: {0:0.2f}".format(BPOS))
+            st.write("HKLD: {0:0.2f}".format(HKLD))
+            st.write("STOR: {0:0.2f}".format(STOR))
+            st.write("FLWI: {0:0.2f}".format(FLWI))
+            st.write("RPM: {0:0.2f}".format(RPM))
+            st.write("SPPA: {0:0.2f}".format(SPPA))
+            st.write("ECD: {0:0.2f}".format(ECD))
 
 
         # Отрисовка временных рядов:
@@ -666,10 +670,9 @@ for path in files:
                 ax2.tick_params(axis='y', labelcolor='tab:blue')
                 ax2.set_xticks(np.arange(0, len(x), 60))
                 ax2.set_xticklabels(x[::60], rotation=90, fontdict={'fontsize': 40})
-               # ax2.set_title(f'Зависимость {col_list[i]} от Сигнала по скважине №{file}',
-                         #     fontsize=40)
-                ax2.set_title(f'Зависимость {col_list[i]} от Сигнала',
+                ax2.set_title(f'Зависимость {col_list[i]} от Сигнала по скважине №{hole_id}',
                               fontsize=40)
+
                 fig.tight_layout()
                 # plt.show()
                 st.pyplot()
