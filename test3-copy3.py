@@ -1,5 +1,4 @@
 import pickle
-import warnings
 from datetime import timedelta
 
 import pandas as pd
@@ -10,12 +9,7 @@ import time
 import os
 
 from IPython.core.display import display
-from IPython.utils import io
 from catboost import CatBoostClassifier
-from prompt_toolkit.shortcuts import progress_bar
-from sklearn.preprocessing import StandardScaler
-
-warnings.filterwarnings('ignore')
 from sklearn.preprocessing import StandardScaler
 
 st.header('Предсказание прихвата на буровой')
