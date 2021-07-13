@@ -25,7 +25,7 @@ st.write("Работа с 1 файлом, построчный анализ")
 
 model = "ctboost_model_12_07.pkl" # Костя модель
 #model = "ctboost_predict-60-1.pkl" # модель 60 сек тики перед таргетом
-model = "ctboost_predict-60-60.pkl" # модель 60 сек сдвиг
+#model = "ctboost_predict-60-60.pkl" # модель 60 сек сдвиг
 
 
 pickle_in = open(model, 'rb')
