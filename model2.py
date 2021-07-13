@@ -685,7 +685,7 @@ for path in files:
             # out_green("Норма. Вероятность прихвата: {0:0.2f}".format(
             # y_predict_proba[1]))
             st.write("ID: {}".format(id_index))
-            st.write("Разметка Stuckpipe: {}".format(Stuckpipe))
+            # st.write("Разметка Stuckpipe: {}".format(Stuckpipe))
             st.write("Hole: {}".format(hole_number))
             st.write("BPOS: {0:0.2f}".format(BPOS))
             st.write("HKLD: {0:0.2f}".format(HKLD))
