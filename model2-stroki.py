@@ -15,7 +15,8 @@ from sklearn.preprocessing import StandardScaler
 
 st.header('Предсказание прихвата на буровой')
 st.subheader('время предупреждающего сигнала около 60 сек')
-st.write("(Работа с множеством файлов, анализ последней ситуации)")
+st.write("(Работа с множеством файлов)")
+st.write("( Анализ последней ситуации, графики, построчный анализ данных)")
 
 #model = "ctboost_predict_model60_6_New.pkl"
 #model = "ctboost_predict_model60_6_all.pkl"
