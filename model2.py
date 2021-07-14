@@ -34,8 +34,8 @@ for path in files:
     button = st.button(path.name)
     filename = path.name
     #data = pd.read_csv(uploaded_file)
-    data1 = pd.read_excel(path, skiprows=[1, 2]) # режет 2 строки
-    #data1 = pd.read_excel(path)
+    #data1 = pd.read_excel(path, skiprows=[1, 2]) # режет 2 строки
+    data1 = pd.read_excel(path)
     # data = data.append(data1, ignore_index= True)
     data = pd.concat([data, data1], ignore_index=True)
     st.write(data.shape)
