@@ -15,8 +15,9 @@ from sklearn.preprocessing import StandardScaler
 
 st.header('Предсказание прихвата на буровой')
 st.subheader('время предупреждающего сигнала около 60 сек')
+st.write("(Анализ последней ситуации, графики, построчный анализ данных)")
 st.write("(Работа с множеством файлов)")
-st.write("( Анализ последней ситуации, графики, построчный анализ данных)")
+
 
 #model = "ctboost_predict_model60_6_New.pkl"
 #model = "ctboost_predict_model60_6_all.pkl"
@@ -32,7 +33,8 @@ data = pd.DataFrame()
 files = st.file_uploader("Choose a EXCEL file", accept_multiple_files=True, type=["xlsx"])
 
 for path in files:
-    button = st.button(path.name)
+    #button = st.button(path.name,+ "анализировать")
+    button = st.button ("Анализировать:  {}".format(path.name))
     filename = path.name
     #data = pd.read_csv(uploaded_file)
     #data1 = pd.read_excel(path, skiprows=[1, 2]) # режет 2 строки
